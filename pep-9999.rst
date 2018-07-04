@@ -155,7 +155,8 @@ Group employees by department::
 
 Group files by extension::
 
-    grouping(os.listdir('.'), key=lambda filepath: os.path.splitext(filepath)[1])
+    grouping((entry for entry in os.scandir('.') if entry.is_file()),
+             key=lambda entry: os.path.splitext(entry)[1])
 
 
 Group transactions by type::
@@ -322,10 +323,10 @@ comparison in this situation would be ``Series.groupby`` [#]_.
     In [1]: import pandas as pd
 
     In [2]: def mod(x):
-    ...:     def modulo(n):
-    ...:         return n % x
-    ...:     return modulo
-    ...:
+       ...:     def modulo(n):
+       ...:         return n % x
+       ...:     return modulo
+       ...:
 
     In [3]: pd.Series(range(10)).groupby(mod(2)).groups
     Out[3]:
