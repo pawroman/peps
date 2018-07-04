@@ -383,7 +383,7 @@ value)`` pairs.
 
 
     def grouping(iterable, key=itemgetter(0)):
-        '''
+        """
         Group elements of an iterable into a dict of lists.
 
         The ``key`` is a function computing a key value for each
@@ -395,7 +395,7 @@ value)`` pairs.
             >>> grouping(['apple', 'banana', 'aardvark'])       # doctest: +SKIP
             {'a': ['apple', 'aardvark'], 'b': ['banana']}
 
-        '''
+        """
         groups = {}
         for k, g in groupby(iterable, key):
             groups.setdefault(k, []).extend(g)
