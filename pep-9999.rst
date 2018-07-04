@@ -30,10 +30,11 @@ lists based on an iterable and a key-function.
 
 ::
 
-    from itertools import groupby as _groupby
+    from itertools import groupby
+
 
     def grouping(iterable, key=None):
-        '''
+        """
         Group elements of an iterable into a dict of lists.
 
         The ``key`` is a function computing a key value for each
@@ -44,9 +45,9 @@ lists based on an iterable and a key-function.
             >>> grouping('AbBa', key=str.casefold)
             {'a': ['A', 'a'], 'b': ['b', 'B']}
 
-        '''
+        """
         groups = {}
-        for k, g in _groupby(iterable, key):
+        for k, g in groupby(iterable, key):
             groups.setdefault(k, []).extend(g)
         return groups
 
@@ -307,9 +308,10 @@ as the first parameter.
 
 ::
 
+   >>> import toolz
    >>> names = ['Alice', 'Bob', 'Charlie', 'Dan', 'Edith', 'Frank']
-   >>> groupby(len, names)  
-   {3: ['Bob', 'Dan'], 5: ['Alice', 'Edith', 'Frank'], 7: ['Charlie']}
+   >>> sorted(toolz.groupby(len, names).items())
+   [(3, ['Bob', 'Dan']), (5, ['Alice', 'Edith', 'Frank']), (7, ['Charlie'])]
 
 
 Pandas
@@ -376,8 +378,9 @@ value)`` pairs.
 
 ::
 
-    from itertools import groupby as _groupby
+    from itertools import groupby
     from operator import itemgetter
+
 
     def grouping(iterable, key=itemgetter(0)):
         '''
@@ -389,12 +392,12 @@ value)`` pairs.
 
         By default, the key-function gets the 0th index of each element.
 
-            >>> grouping(['apple', 'banana', 'aardvark'])
+            >>> grouping(['apple', 'banana', 'aardvark'])       # doctest: +SKIP
             {'a': ['apple', 'aardvark'], 'b': ['banana']}
 
         '''
         groups = {}
-        for k, g in _groupby(iterable, key):
+        for k, g in groupby(iterable, key):
             groups.setdefault(k, []).extend(g)
         return groups
 
@@ -479,7 +482,8 @@ same data type for input and output.
    >>> actors = ['Graham', 'Eric', 'Terry', 'Terry', 'John', 'Michael']
    >>> sorted(actors)
    ['Eric', 'Graham', 'John', 'Michael', 'Terry', 'Terry']
-   >>> sorted(actors, key=len)
+   >>> sorted_actors = sorted(actors, key=len)
+   >>> sorted_actors
    ['Eric', 'John', 'Terry', 'Terry', 'Graham', 'Michael']
 
 
@@ -489,7 +493,7 @@ consider the possibilities before demonstrating the results.
 
 ::
 
-   >>> grouping(actors, key=len)
+   >>> grouping(sorted_actors, key=len)
    {4: ['Eric', 'John'], 5: ['Terry', 'Terry'], 6: ['Graham'], 7: ['Michael']}
 
 
